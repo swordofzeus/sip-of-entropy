@@ -85,9 +85,11 @@ This distribution models a process with two possible outcomes (e.g., True/False 
 
 The probability mass function (PMF) is given by:
 
-\[
-P(X = x) = \binom{n}{x} p^x (1 - p)^{n - x}
-\]
+$$
+P(X = k) = {n \choose k} p^k (1-p)^{n-k}
+$$
+
+
 
 where:
 
@@ -99,3 +101,19 @@ where:
 | \( 1 - p \) | Probability of failure |
 
 ---
+
+
+$$
+log(P(X = k)) = log({n \choose k} p^k (1-p)^{n-k})
+$$
+
+
+$$
+log(P(X = k)) = log({n \choose k}) + log(p^k (1-p)^{n-k})
+$$
+
+
+$$
+log(P(X = k)) = log({n \choose k}) + (log(p^k) + log(1-p)^{n-k})
+$$
+

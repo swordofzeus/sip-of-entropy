@@ -194,15 +194,15 @@ the probability of all of them happening together is the product of their indivi
 ### Why This Makes Sense
 
 Each flip contributes one probability factor:
-- for every head → multiply by \(p\),
-- for every tail → multiply by \(1 - p\).
+- for every head → multiply by p,
+- for every tail → multiply by (1 - p).
 
 So, for example:
-- The sequence `HHT` has probability \(p \times p \times (1 - p) = p^2 (1 - p)\).
-- The sequence `HTT` has probability \(p \times (1 - p) \times (1 - p) = p (1 - p)^2\).
+- The sequence `HHT` has probability p * p * (1 - p) = p^2 (1 - p).
+- The sequence `HTT` has probability p * (1 - p) * (1 - p) = p (1 - p)^2.
 
-Every sequence with \(k\) heads and \(n - k\) tails has the same probability \(p^{k}(1 - p)^{n - k}\).
-When combined with the number of such sequences, \(\binom{n}{k}\),
+Every sequence with k heads and n - k tails has the same probability p^{k}(1 - p)^{n - k}.
+When combined with the number of such sequences, binom{n}{k},
 this leads to the **binomial distribution**:
 
 $$
@@ -210,40 +210,39 @@ P(X = k) = \binom{n}{k} p^{k} (1 - p)^{n - k}
 $$
 
 
+## Derivation of Binary Entropy
 
-This represents the number of different ways k successes can be arranged among n binary outcomes.
-
-
-$$
-log(P(X = k)) = log({n \choose k} p^k (1-p)^{n-k})
-$$
-
-Break log into sums
+Start with the combinatorial term:
 
 $$
-log(P(X = k)) = log({n \choose k}) + log(p^k (1-p)^{n-k})
+{n \choose k} = \frac{n!}{k!(n-k)!}
 $$
 
-Break second log into sums
+Take the log:
 
 $$
-log(P(X = k)) = log({n \choose k}) + (log(p^k) + log(1-p)^{n-k})
+\log {n \choose k} = \log(n!) - \log(k!) - \log((n-k)!)
 $$
 
-Apply log product rule
+Apply Stirling’s approximation log(n!) = nlog n - n:
 
 $$
-log(P(X = k)) = log({n \choose k}) + (k*log(p) + (n-k)*log(1-p))
+\log {n \choose k} \approx (n\log n - n) - [k\log k - k] - [(n-k)\log(n-k) - (n-k)]
 $$
 
-Apply stirling approx: log(n!) = n log n! - n!
-
+Simplify:
 
 $$
-log(P(X = k)) = log(n!) - log( (n-k)! * k!) + (k*log(p) + (n-k)*log(1-p))
+\log {n \choose k} \approx n\log n - k\log k - (n-k)\log(n-k)
 $$
 
-The next we substitute k = np. np is the expected value of heads or successes we expect to have over a large enough 'infinite' number of trials.
+Normalize per trial:
+
+$$
+\frac{1}{n}\log {n \choose k} \approx \log n - \frac{k}{n}\log k - \left(1 - \frac{k}{n}\right)\log(n-k)
+$$
+
+The next step requires substiting k = np.
 
 # Why We Substitute k = np
 
@@ -267,8 +266,7 @@ So when we calculate entropy — the **average information content** — we only
 | $$k$$ | Number of successes (heads) |
 | $$np$$ | Expected number of successes (the mean of the distribution) |
 
-This is why in entropy derivations, we substitute $$k = np$$ —
-it represents the center of all the most likely outcomes.
+This is why in entropy derivations, we substitute k = np — it represents the center of all the most likely outcomes.
 
 ---
 
@@ -309,80 +307,33 @@ So:
 
 
 $$
-\log(P(X = k)) = \log{n \choose k} + (k\log p + (n-k)\log(1-p))
+\frac{1}{n}\log {n \choose np} = \log n - p\log(np) - (1-p)\log(n(1-p))
 $$
 
-Apply Stirling's approximation to each factorial
+Expand the log terms:
 
 $$
-\log(P(X = k)) \approx [n\log n - n] - [(n-k)\log(n-k) - (n-k)] - [k\log k - k] + \left[k\log p + (n-k)\log(1-p)\right]
+\log(np) = \log n + \log p, \quad \log(n(1-p)) = \log n + \log(1-p)
 $$
 
-Expand all terms
+Substitute back:
 
 $$
-\log(P(X = k)) \approx n\log n - n - (n-k)\log(n-k) + (n-k) - k\log k + k + k\log p + (n-k)\log(1-p)
+\frac{1}{n}\log {n \choose np} = \log n - [p(\log n + \log p) + (1-p)(\log n + \log(1-p))]
 $$
 
-Group linear and logarithmic terms
+Simplify and cancel \(\log n\) terms:
 
 $$
-\log(P(X = k)) \approx [n\log n - (n-k)\log(n-k) - k\log k + k\log p + (n-k)\log(1-p)] + [-n + (n-k) + k]
+\frac{1}{n}\log {n \choose np} = -p\log p - (1-p)\log(1-p)
 $$
 
-Simplify linear terms
+Recognize this as the entropy function:
 
 $$
--n + (n-k) + k = -n + n - k + k = 0
+H(p) = -p\log(p) - (1-p)\log(1-p)
 $$
 
-Substitute k = np
-
-$$
-\log(P(X = np)) \approx n\log n - (n-np)\log(n-np) - np\log(np) + np\log p + (n-np)\log(1-p)
-$$
-
-Simplify using n-np = n(1-p)
-
-$$
-\log(P(X = np)) \approx n\log n - n(1-p)\log(n(1-p)) - np\log(np) + np\log p + n(1-p)\log(1-p)
-$$
-
-Divide by n to get per-symbol rate
-
-$$
-\frac{1}{n}\log(P(X = np)) \approx \log n - (1-p)\log(n(1-p)) - p\log(np) + p\log p + (1-p)\log(1-p)
-$$
-
-Expand logarithms
-
-$$
-\frac{1}{n}\log(P(X = np)) \approx \log n - (1-p)[\log n + \log(1-p)] - p[\log n + \log p] + p\log p + (1-p)\log(1-p)
-$$
-
-Expand and cancel terms
-
-$$
-\frac{1}{n}\log(P(X = np)) \approx \log n - (1-p)\log n - (1-p)\log(1-p) - p\log n - p\log p + p\log p + (1-p)\log(1-p)
-$$
-
-All terms cancel except log n terms
-
-$$
-\frac{1}{n}\log(P(X = np)) \approx \log n - (1-p)\log n - p\log n
-$$
-
-Simplify log n terms
-
-$$
-\frac{1}{n}\log(P(X = np)) \approx \log n(1 - (1-p) - p) = \log n(0) = 0
-$$
-
-For combinatorial perspective, use only binomial coefficient
-
-$$
-\frac{1}{n}\log{n \choose np} \approx -p\log p - (1-p)\log(1-p) = H(p)
-$$
 
 ### Less Rigorous Derivation
 

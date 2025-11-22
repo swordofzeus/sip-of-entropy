@@ -288,7 +288,7 @@ Almost every long sequence will fall inside this region when $$n$$ is large enou
 | p - ε to p + ε | Range of values for the observed frequency of successes |
 | **ε-typical region** | The set of sequences whose observed frequencies lie within that range |
 
----
+
 
 ## Putting It All Together
 
@@ -304,7 +304,7 @@ So:
 - The nearby outcomes within p ± ε are automatically accounted for because, as n → ∞, they behave the same way as the mean case.
 - Entropy describes the **information rate** of that typical region — the number of bits required to identify one sequence from the many likely ones.
 
-
+## Finsih Entropy Derivation (Substitute k = np)
 
 $$
 \frac{1}{n}\log {n \choose np} = \log n - p\log(np) - (1-p)\log(n(1-p))

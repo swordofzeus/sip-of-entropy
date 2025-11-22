@@ -218,19 +218,26 @@ $$
 log(P(X = k)) = log({n \choose k} p^k (1-p)^{n-k})
 $$
 
+Break log into sums
 
 $$
 log(P(X = k)) = log({n \choose k}) + log(p^k (1-p)^{n-k})
 $$
 
+Break second log into sums
 
 $$
 log(P(X = k)) = log({n \choose k}) + (log(p^k) + log(1-p)^{n-k})
 $$
 
+Apply log product rule
+
 $$
 log(P(X = k)) = log({n \choose k}) + (k*log(p) + (n-k)*log(1-p))
 $$
+
+Apply stirling approx: log(n!) = n log n! - n!
+
 
 $$
 log(P(X = k)) = log(n!) - log( (n-k)! * k!) + (k*log(p) + (n-k)*log(1-p))
@@ -301,3 +308,169 @@ So:
 
 
 
+$$
+\log(P(X = k)) = \log{n \choose k} + (k\log p + (n-k)\log(1-p))
+$$
+
+Apply Stirling's approximation to each factorial
+
+$$
+\log(P(X = k)) \approx [n\log n - n] - [(n-k)\log(n-k) - (n-k)] - [k\log k - k] + \left[k\log p + (n-k)\log(1-p)\right]
+$$
+
+Expand all terms
+
+$$
+\log(P(X = k)) \approx n\log n - n - (n-k)\log(n-k) + (n-k) - k\log k + k + k\log p + (n-k)\log(1-p)
+$$
+
+Group linear and logarithmic terms
+
+$$
+\log(P(X = k)) \approx [n\log n - (n-k)\log(n-k) - k\log k + k\log p + (n-k)\log(1-p)] + [-n + (n-k) + k]
+$$
+
+Simplify linear terms
+
+$$
+-n + (n-k) + k = -n + n - k + k = 0
+$$
+
+Substitute k = np
+
+$$
+\log(P(X = np)) \approx n\log n - (n-np)\log(n-np) - np\log(np) + np\log p + (n-np)\log(1-p)
+$$
+
+Simplify using n-np = n(1-p)
+
+$$
+\log(P(X = np)) \approx n\log n - n(1-p)\log(n(1-p)) - np\log(np) + np\log p + n(1-p)\log(1-p)
+$$
+
+Divide by n to get per-symbol rate
+
+$$
+\frac{1}{n}\log(P(X = np)) \approx \log n - (1-p)\log(n(1-p)) - p\log(np) + p\log p + (1-p)\log(1-p)
+$$
+
+Expand logarithms
+
+$$
+\frac{1}{n}\log(P(X = np)) \approx \log n - (1-p)[\log n + \log(1-p)] - p[\log n + \log p] + p\log p + (1-p)\log(1-p)
+$$
+
+Expand and cancel terms
+
+$$
+\frac{1}{n}\log(P(X = np)) \approx \log n - (1-p)\log n - (1-p)\log(1-p) - p\log n - p\log p + p\log p + (1-p)\log(1-p)
+$$
+
+All terms cancel except log n terms
+
+$$
+\frac{1}{n}\log(P(X = np)) \approx \log n - (1-p)\log n - p\log n
+$$
+
+Simplify log n terms
+
+$$
+\frac{1}{n}\log(P(X = np)) \approx \log n(1 - (1-p) - p) = \log n(0) = 0
+$$
+
+For combinatorial perspective, use only binomial coefficient
+
+$$
+\frac{1}{n}\log{n \choose np} \approx -p\log p - (1-p)\log(1-p) = H(p)
+$$
+
+### Less Rigorous Derivation
+
+The derivation above used the binomial theorem to build entropy from combinatorics.
+A less formal but more intuitive way to reach the same idea is to think of entropy as the **expected surprise** of a random event.
+
+If we flip a **fair coin** three times, every sequence —
+`HHH, HHT, HTH, THH, HTT, THT, TTH, TTT` — is **equally likely**.
+There are \( 2^3 = 8 \) total outcomes, so describing each unique sequence requires **3 bits**.
+That’s because we must design our “codebook” *before* observing the flips,
+and each bit halves the number of possible outcomes.
+
+If we wanted to assign a shorter code to one outcome,
+we’d have to assign a longer code to another —
+since all are equally likely, that provides no compression benefit.
+
+---
+
+### From Probability to Surprise
+
+The function that translates **probability** into **surprise** is:
+
+$$
+\text{surprise}(p) = \log_2\!\left(\frac{1}{p}\right)
+$$
+
+For 8 equally likely outcomes, \(p = 1/8\):
+
+$$
+\log_2\!\left(\frac{1}{1/8}\right) = \log_2(8) = 3 \text{ bits.}
+$$
+
+That tells us: it takes 3 binary questions (bits)
+to distinguish one specific sequence from the 8 possible ones.
+
+---
+
+### Biased Coin Example
+
+Now suppose the coin is **biased**: \(p_H = 0.8\), \(p_T = 0.2\).
+Sequences with many heads are more frequent.
+We can take advantage of this by assigning **shorter codes** to common patterns
+and **longer codes** to rare ones — achieving compression.
+
+Using the same relationship:
+
+$$
+\text{surprise}(p_H) = \log_2\!\left(\frac{1}{0.8}\right), \quad
+\text{surprise}(p_T) = \log_2\!\left(\frac{1}{0.2}\right)
+$$
+
+---
+
+### Taking the Expectation
+
+To find the **average surprise** across all possible outcomes,
+we weight each surprise by its probability — exactly like an expected value:
+
+$$
+H = \sum_i p_i \log_2\!\left(\frac{1}{p_i}\right)
+$$
+
+or equivalently,
+
+$$
+H = -\sum_i p_i \log_2(p_i)
+$$
+
+For the binary case, that becomes:
+
+$$
+H(p) = -p \log_2(p) - (1 - p) \log_2(1 - p)
+$$
+
+This represents the **average number of bits per symbol**
+needed to describe the outcomes of a random process.
+
+---
+
+### Summary
+
+| Concept | Meaning |
+|----------|----------|
+| log(1/p) | Converts probability to "surprise" in bits |
+| p log(1/p)| Weights surprise by how often the event occurs |
+| H = sum ( p log(1/p) )| Expected surprise (entropy) |
+| Fair coin | All outcomes equally surprising (3 bits for 3 flips) |
+| Biased coin | Common outcomes use fewer bits; rare ones use more |
+
+Entropy is thus the **theoretical limit of compression** —
+the smallest average number of bits required to encode the outcomes of a distribution.

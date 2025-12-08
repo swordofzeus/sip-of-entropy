@@ -111,22 +111,18 @@ To define surprise formally, we revisit the question of assigning binary codes. 
 - `10 = HHHHHT`
 
 and we write `010` into the decoder, it cannot determine whether the stream represents `0,1,0` or `0,10`. Therefore, the prefixes of each code must be unique. Visualizing each distinct outcome as a leaf in a binary tree, only **leaf nodes** may be used as codewords. A non-leaf node is a prefix of deeper nodes and would create ambiguity.
-<table>
-  <tr>
-    <td style="border: none; vertical-align: top; padding-right: 20px;">
-      <img src="leaf_nodes.png" width="180px">
-    </td>
-    <td style="border: none; vertical-align: top;">
-      <table>
-        <tr><th>Code</th><th>Symbol</th></tr>
-        <tr><td>00</td><td>A</td></tr>
-        <tr><td>01</td><td>B</td></tr>
-        <tr><td>10</td><td>C</td></tr>
-        <tr><td>11</td><td>D</td></tr>
-      </table>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <div style="display: inline-flex; gap: 20px; align-items: center;">
+    <img src="leaf_nodes.png" width="180px">
+    <table>
+      <tr><th>Code</th><th>Symbol</th></tr>
+      <tr><td>00</td><td>A</td></tr>
+      <tr><td>01</td><td>B</td></tr>
+      <tr><td>10</td><td>C</td></tr>
+      <tr><td>11</td><td>D</td></tr>
+    </table>
+  </div>
+</p>
 
 
 
@@ -136,9 +132,20 @@ $$
 0.5 + 0.25 + 0.125 + 0.125
 $$
 
-must be **\(\le 1\)** to guarantee that the prefix space is non-overlapping. We can choose how many subtrees we make and which codes we assign to them, but the total codespace assigned across all leaves cannot exceed 1.
+must be **<** to guarantee that the prefix space is non-overlapping. We can choose how many subtrees we make and which codes we assign to them, but the total codespace assigned across all leaves cannot exceed 1.
 
-<image placeholder: tree with 0.5 / 0.25 / 0.125 / 0.125>
+<p align="center">
+  <div style="display: inline-flex; gap: 20px; align-items: center;">
+    <img src="compressed_tree.png" width="240px">
+    <table>
+      <tr><th>Code</th><th>Symbol</th></tr>
+      <tr><td>00</td><td>A</td></tr>
+      <tr><td>01</td><td>B</td></tr>
+      <tr><td>10</td><td>C</td></tr>
+      <tr><td>11</td><td>D</td></tr>
+    </table>
+  </div>
+</p>
 
 To illustrate, consider a fair coin with equal probability of H and T. In a binary tree, each flip divides the remaining coding space in half:
 
@@ -193,7 +200,21 @@ $$
 
 Surprise is the geometric amount by which the interval width contracts when the symbol is observed.
 
-### ⚙️ Formalizing “Surprise”
+### TODO: Formula for Surprise (Jai)
+TODO: Continue with above explaination to explain the final formula for the surprise of an event
+as -log(p). Think about the depth and how it relates to using log. 
+
+Once the formula for surprise is explained, talk about the expectation of surprsie over all events based on definition of expectation 
+description above and finally as sum p(x)*log(p(x)) for all x.
+
+
+
+
+
+
+### End Jai
+
+### ⚙️ Surprise & The Binomial Distribution 
 
 Because we are using **binary coding** (i.e., 0s and 1s) to represent events, we can start formalizing the concept using the **binomial distribution**.
 This distribution models a process with two possible outcomes (e.g., True/False or Heads/Tails) where one outcome has probability \( p \) and the other \( 1 - p \).

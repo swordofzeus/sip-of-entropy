@@ -88,14 +88,14 @@ $$
 
 If you wanted to measure the expectation of rolling a fair six-sided die, the expected value would be:
 
-$$
+```math
 \frac{1}{6}\cdot 1
 + \frac{1}{6}\cdot 2
 + \frac{1}{6}\cdot 3
 + \frac{1}{6}\cdot 4
 + \frac{1}{6}\cdot 5
 + \frac{1}{6}\cdot 6
-$$
+```
 
 Conceptually this is equivalent to the average: if a die is rolled an infinite number of times, the average of all rolls will converge to this value.
 

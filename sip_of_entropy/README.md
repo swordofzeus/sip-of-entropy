@@ -111,18 +111,22 @@ To define surprise formally, we revisit the question of assigning binary codes. 
 - `10 = HHHHHT`
 
 and we write `010` into the decoder, it cannot determine whether the stream represents `0,1,0` or `0,10`. Therefore, the prefixes of each code must be unique. Visualizing each distinct outcome as a leaf in a binary tree, only **leaf nodes** may be used as codewords. A non-leaf node is a prefix of deeper nodes and would create ambiguity.
-<p align="center">
-  <div style="display: inline-flex; gap: 20px; align-items: center;">
-    <img src="leaf_nodes.png" width="180px">
-    <table>
-      <tr><th>Code</th><th>Symbol</th></tr>
-      <tr><td>00</td><td>A</td></tr>
-      <tr><td>01</td><td>B</td></tr>
-      <tr><td>10</td><td>C</td></tr>
-      <tr><td>11</td><td>D</td></tr>
-    </table>
-  </div>
-</p>
+<table>
+  <tr>
+    <td style="border: none; vertical-align: top; padding-right: 20px;">
+      <img src="leaf_nodes.png" width="180px">
+    </td>
+    <td style="border: none; vertical-align: top;">
+      <table>
+        <tr><th>Code</th><th>Symbol</th></tr>
+        <tr><td>00</td><td>A</td></tr>
+        <tr><td>01</td><td>B</td></tr>
+        <tr><td>10</td><td>C</td></tr>
+        <tr><td>11</td><td>D</td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
 
 
 

@@ -6,9 +6,22 @@ This part of the repo devotes 6 sections to understanding what entropy actually 
 Unfortunately since cross entropy became a popular loss function ML textbooks gloss over much of the concepts as 'we use logs because they have nice additive properties'. Hopefully the reader will have a much greater depth of understanding of what these concepts are actually measuring and why they constantly show up in ML theory after reading this section.
 
 ## Table of Contents
-
+### Entropy
 1. [Concept and Intuition](docs/01_concept_and_intuition.md)
 2. [Kraft Inequality and Prefix Codes](docs/02_kraft_and_prefix_codes.md)
 3. [Formalizing Surprise](docs/03_formalizing_surprise.md)
 4. [Surprise and Code Length](docs/04_surprise_and_code_length.md)
 5. [Entropy from the Binomial Distribution](docs/05_binomial_derivation.md)
+
+### Entropy Between Messages
+1. TODO: Joint Entropy
+2. TODO: Conditional Entropy
+3. TODO: Cross Entropy
+4. TODO: KL Divergence
+5. TODO: Mutual Information
+6. TODO: Mutual Information as a KL Divergence
+ 
+
+ ### Entropy as a limit
+ 1. TODO: AEP Theorm
+ 2. TODO: Shannon source coding theorm

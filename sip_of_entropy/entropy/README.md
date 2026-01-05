@@ -3,6 +3,7 @@
 Despite being the foundational concept that underlies information theory, entropy is often presented as a formula to memorize.
 This part of the repo devotes 6 sections to understanding what entropy actually measures. It starts from a pure conceptual view with no formulas and slowly builds up the formula from intuition by connecting concepts from probability, combinatorics, and coding theory together. The final section is a purely rigerous mathemtcal derivation from the binomial theorm and it matches the formula we construct in sections 1-5 from a conceptual framework.
 
+Unfortunately since cross entropy became a popular loss function ML textbooks gloss over much of the concepts as 'we use logs because they have nice additive properties'. Hopefully the reader will have a much greater depth of understanding of what these concepts are actually measuring and why they constantly show up in ML theory.
 
 ## Table of Contents
 

@@ -1,14 +1,8 @@
 # Understanding Entropy
 
-Conceptually, **entropy** is a measure of how much *surprise* or *randomness* exists across a distribution.
-It is closely linked to the fields of **probability** and **combinatorics**.
-We will derive entropy from a **binomial distribution**, but first describe its uses and conception.
+**Entropy** is the foundation of information theory and measures of how much *surprise* or *randomness* exists across a distribution. It is closely linked to the fields of **probability** and **combinatorics** and **coding theory**.
 
-
-
-Conceptually, **entropy** is a measure of how much *surprise* or *randomness* exists across a distribution.
-It is closely linked to the fields of **probability** and **combinatorics**.
-We will derive entropy from a **binomial distribution**, but first describe its uses and conception.
+We  slowly derive the formula for entropy conceptually in sections 1-4 and then rigerously via the binomial distribution in section 5 arriving at the same value. First we start purely with an example to illustrate the concept informally.
 
 ---
 

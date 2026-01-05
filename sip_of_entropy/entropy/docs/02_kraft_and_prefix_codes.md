@@ -52,7 +52,14 @@ $$
 0.5 + 0.25 + 0.125 + 0.125
 $$
 
-must be **<** to guarantee that the prefix space is non-overlapping. We can choose how many subtrees we make and which codes we assign to them, but the total codespace assigned across all leaves cannot exceed 1.
+must be **<** 1 to guarantee that the prefix space is non-overlapping. We can choose how many subtrees we make and which codes we assign to them, but the total codespace assigned across all leaves cannot exceed 1.
+
+### Kraft–McMillan Inequality
+$$
+\sum_{x \in \mathcal{X}} 2^{-\ell(x)} \le 1
+$$
+
+The kraft mcmillian inequlity forces a constraint that each code word must be uniquely decoable by not sharing the entire prefix of another code word. The length of the collision free codespace must be less then 1. Each bit breaks a codespace down in intervals of 1/2, which is where the 1/2^n comes from. We can partition the codespace in different ways such as reserving more frequently seen outcomes to shorter code spaces higher up in the tree.
 
 <p align="center">
   <div style="display: inline-flex; gap: 20px; align-items: center;">

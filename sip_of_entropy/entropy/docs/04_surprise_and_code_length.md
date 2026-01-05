@@ -56,7 +56,4 @@ $$
 
 
 
-It is a code length because it is an expectation: the probability of each event multiplied by the surprise of that event.
-It is an expectation of surprise across all events P, i.e. the average code length.
-
-
+Entropy is a code length because it is the surprise of multiple events happening together specifically one of each event in the distribution. The surprise of each event is measured and multiplied by the probability of that event happening making it an expectation of surprise. The entropy of a distribution is the weighted expectation of surprise over all events in the distribution. Conceptually it measures how difficult it is to guess what happens next by estimating the factor by which the existing probability distribution will collapse based on observing the next value. The value is measured in bits and measures the amount of 'halving' the probability distribution will go through on seeing the next event with 1 bit signifying the probability collapsed equally into two equal parts.

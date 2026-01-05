@@ -33,5 +33,30 @@ Exploiting the varying frequencies of individual events we can group them into s
 Surprise measures uncertainty of a single event; code length measures uncertainty of a sequence of events.
 
 Entropy therefore is just the expectation of surprise across an entire distribution.
+
+$$
+H(X)
+= \mathbb{E}[\text{Surprise}(X)]
+= \sum_{x \in \mathcal{X}} p(x)\,\text{Surprise}(x)
+$$
+
+Substituting the definition of surprise,
+
+$$
+\text{Surprise}(x) = \log_2 \frac{1}{p(x)},
+$$
+
+we obtain
+
+$$
+H(X)
+= \sum_{x \in \mathcal{X}} p(x)\,\log_2 \frac{1}{p(x)}
+= - \sum_{x \in \mathcal{X}} p(x)\,\log_2 p(x).
+$$
+
+
+
 It is a code length because it is an expectation: the probability of each event multiplied by the surprise of that event.
 It is an expectation of surprise across all events P, i.e. the average code length.
+
+

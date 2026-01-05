@@ -6,8 +6,8 @@ This part of the repo devotes 6 sections to understanding what entropy actually 
 
 ## Table of Contents
 
-1. [Concept and Intuition](01_concept_and_intuition.md)
-2. [Kraft Inequality and Prefix Codes](02_kraft_and_prefix_codes.md)
-3. [Formalizing Surprise](03_formalizing_surprise.md)
-4. [Surprise and Code Length](04_surprise_and_code_length.md)
-5. [Entropy from the Binomial Distribution](05_binomial_derivation.md)
+1. [Concept and Intuition](docs/01_concept_and_intuition.md)
+2. [Kraft Inequality and Prefix Codes](docs/02_kraft_and_prefix_codes.md)
+3. [Formalizing Surprise](docs/03_formalizing_surprise.md)
+4. [Surprise and Code Length](docs/04_surprise_and_code_length.md)
+5. [Entropy from the Binomial Distribution](docs/05_binomial_derivation.md)

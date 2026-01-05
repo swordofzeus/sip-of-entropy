@@ -200,19 +200,136 @@ $$
 
 Surprise is the geometric amount by which the interval width contracts when the symbol is observed.
 
-### TODO: Formula for Surprise (Jai)
-TODO: Continue with above explaination to explain the final formula for the surprise of an event
-as -log(p). Think about the depth and how it relates to using log. 
 
-Once the formula for surprise is explained, talk about the expectation of surprsie over all events based on definition of expectation 
-description above and finally as sum p(x)*log(p(x)) for all x.
+### TODO: Formula for Surprise
 
+Surprise links the collapse of the remaining probability mass after seeing a new event X to a unit of information (bits).
 
+Lets say we are rolling a 4 sided die with a 40% chance of 1, and a 20% chance of 2, 3, and 4.
 
+There are \(4^n\) such sequences. Assume we roll the die 4 times; there are:
 
+\[
+4^4 = 256
+\]
 
+possible sequences.
 
-### End Jai
+Example sequences:
+- (1,1,2,4)
+- (1,2,2,4)
+- (2,1,2,4)
+
+Each sequence represents a possible world.
+
+We will derive the formula for surprise by examining the surprise of rolling a 1 on the first roll.
+
+Before any roll, the total probability mass is 1.
+
+After conditioning on the event \(X = 1\), the set of sequences splits into two disjoint subsets:
+
+| Event | Description | Number of Sequences | Probability Mass |
+|-----|-------------|---------------------|------------------|
+| \(X = 1\) | Sequences starting with 1 | \(1 \cdot 4^3 = 64\) | 0.4 |
+| \(X \neq 1\) | Sequences starting with 2, 3, or 4 | \(3 \cdot 4^3 = 192\) | 0.6 |
+
+These are two sets of sequences, not two outcomes.
+
+If we observe \(X = 1\), 60% of the probability mass is eliminated and the remaining mass is 0.4. The factor by which uncertainty collapses is:
+
+\[
+\frac{1}{0.4} = 2.5
+\]
+
+This ratio measures how much uncertainty was removed by observing X.
+
+To measure this collapse in bits, we use binary halving as the unit of uncertainty reduction:
+
+| Remaining Uncertainty | Reduction Factor | Bits |
+|----------------------|------------------|------|
+| \(1/2\) | 2 | 1 bit |
+| \(1/4\) | 4 | 2 bits |
+| \(1/2^L\) | \(2^L\) | \(L\) bits |
+
+So we solve:
+
+\[
+2^L = 2.5
+\]
+
+which gives:
+
+\[
+L = \log_2(2.5) \approx 1.32 \text{ bits}
+\]
+
+This means observing \(X = 1\) removes one full halving of uncertainty plus a little extra.
+
+As a concrete illustration of one bit, consider a smaller set of sequences:
+
+- (1,2,1,1)
+- (1,2,2,2)
+- (1,4,4,4)
+- (1,1,1,1)
+
+Suppose we observe “second roll = 2”. This splits the set evenly:
+
+| Binary Outcome | Remaining Sequences |
+|---------------|--------------------|
+| 0 | (1,2,1,1), (1,2,2,2) |
+| 1 | (1,4,4,4), (1,1,1,1) |
+
+The remaining uncertainty is halved, corresponding to 1 bit of information. This example illustrates what one bit means, not how surprise is generated.
+
+In general, for an event with probability \(p(X)\), surprise is defined as:
+
+\[
+\text{Surprise}(X) = \log_2 \frac{1}{p(X)}
+\]
+
+Rare events have higher surprise because they remove more uncertainty; common events have lower surprise.
+
+Fractional bits indicate one full halving of uncertainty plus an additional partial reduction.
+
+---
+
+### TODO: Surprise Relation to Code Length
+
+Surprise measures the uncertainty removed by observing a single event X. Code length measures the uncertainty removed after observing a sequence of multiple events.
+
+For independent events \(x_1, x_2, \dots, x_N\):
+
+\[
+P(x_1, x_2, \dots, x_N) = \prod_{i=1}^N p(x_i)
+\]
+
+The uncertainty reduction factor for observing the full sequence is:
+
+\[
+\frac{1}{\prod_{i=1}^N p(x_i)}
+\]
+
+The code length is the number of binary halvings required to isolate the sequence:
+
+\[
+\begin{aligned}
+\text{Code Length}
+&= \log_2 \frac{1}{\prod_{i=1}^N p(x_i)} \\
+&= \sum_{i=1}^N \log_2 \frac{1}{p(x_i)}
+\end{aligned}
+\]
+
+Thus, code length is the sum of the surprises of the individual events.
+
+Frequent events contribute fewer bits; rare events contribute more bits. Compression is possible because events occur at unequal frequencies, allowing typical sequences to be represented with shorter code lengths.
+
+Entropy is the expectation of surprise over the distribution:
+
+\[
+H(P) = \sum_x p(x) \log_2 \frac{1}{p(x)}
+\]
+
+Entropy represents the average surprise per event and therefore the average code length per symbol.
 
 ### ⚙️ Surprise & The Binomial Distribution 
 

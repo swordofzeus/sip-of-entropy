@@ -200,140 +200,158 @@ $$
 
 Surprise is the geometric amount by which the interval width contracts when the symbol is observed.
 
-
-### TODO: Formula for Surprise
+#
+## Formula for Surprise
 
 Surprise links the collapse of the remaining probability mass after seeing a new event X to a unit of information (bits).
 
-Lets say we are rolling a 4 sided die with a 40% chance of 1, and a 20% chance of 2, 3, and 4.
+Lets say we are rolling a 4 sided die with a 40% chance of 1, 20% chance of 2,3 and 4.
+There are 4^n such sequences. Assume we roll the dice 4 times there are:
 
-There are \(4^n\) such sequences. Assume we roll the die 4 times; there are:
-
-\[
+$$
 4^4 = 256
-\]
+$$
 
-possible sequences.
+different outcomes.
 
-Example sequences:
+Example outcomes:
 - (1,1,2,4)
 - (1,2,2,4)
 - (2,1,2,4)
 
-Each sequence represents a possible world.
+We'll derive the formula for surprise by examining the surprise of rolling a 1 on the first outcome.
 
-We will derive the formula for surprise by examining the surprise of rolling a 1 on the first roll.
+Before we roll there are 256 possible outcomes. 40% of probability mass is reserved for outcomes beginning with 1, of which there are:
 
-Before any roll, the total probability mass is 1.
+$$
+1 \cdot 4 \cdot 4 \cdot 4 = 64
+$$
 
-After conditioning on the event \(X = 1\), the set of sequences splits into two disjoint subsets:
+There are:
 
-| Event | Description | Number of Sequences | Probability Mass |
-|-----|-------------|---------------------|------------------|
-| \(X = 1\) | Sequences starting with 1 | \(1 \cdot 4^3 = 64\) | 0.4 |
-| \(X \neq 1\) | Sequences starting with 2, 3, or 4 | \(3 \cdot 4^3 = 192\) | 0.6 |
+$$
+3 \cdot 4 \cdot 4 \cdot 4 = 192
+$$
 
-These are two sets of sequences, not two outcomes.
+outcomes that do not begin with 1.
 
-If we observe \(X = 1\), 60% of the probability mass is eliminated and the remaining mass is 0.4. The factor by which uncertainty collapses is:
+| Case | Description | Number of Outcomes | Probability Mass |
+|----|-------------|-------------------|------------------|
+| X = 1 | Outcomes beginning with 1 | 64 | 0.4 |
+| X ≠ 1 | Outcomes not beginning with 1 | 192 | 0.6 |
 
-\[
+Before any roll: (0, 1.0)
+
+There exist two worlds before our roll: one where event X = 1 occurs and one where X = 1 did not occur.
+Notice surprise does not depend on how many other outcomes there are, it depends solely on the probability of the target outcome because conceptually it eliminates the probability mass from observing X, not zooming into the mass of an event not involving X.
+
+If we roll X = 1, it eliminates 60% of the remaining probability mass. So we arrive at the interval:
+
+(0, 0.4)
+
+So the factor by which our probability distribution collapsed was from 1 previously to 0.4. The ratio is:
+
+$$
 \frac{1}{0.4} = 2.5
-\]
+$$
 
-This ratio measures how much uncertainty was removed by observing X.
+Another way to think about how much probability mass was eliminated is to move from a ratio to bits. Assume for a second we have a much smaller number of possible sequences before our 2nd roll:
 
-To measure this collapse in bits, we use binary halving as the unit of uncertainty reduction:
+- (1,2,1,1)
+- (1,4,4,4)
+- (1,2,2,2)
+- (1,1,1,1)
 
-| Remaining Uncertainty | Reduction Factor | Bits |
-|----------------------|------------------|------|
-| \(1/2\) | 2 | 1 bit |
-| \(1/4\) | 4 | 2 bits |
-| \(1/2^L\) | \(2^L\) | \(L\) bits |
-
-So we solve:
-
-\[
-2^L = 2.5
-\]
-
-which gives:
-
-\[
-L = \log_2(2.5) \approx 1.32 \text{ bits}
-\]
-
-This means observing \(X = 1\) removes one full halving of uncertainty plus a little extra.
-
-As a concrete illustration of one bit, consider a smaller set of sequences:
+We roll a 2. So this eliminates half of our initial set of possibilities:
 
 - (1,2,1,1)
 - (1,2,2,2)
-- (1,4,4,4)
-- (1,1,1,1)
 
-Suppose we observe “second roll = 2”. This splits the set evenly:
+In bits, it leaves us with 1 bit. Because with 1 binary question (0 or 1, yes or no) we can isolate which sequences belong in our new set.
 
-| Binary Outcome | Remaining Sequences |
-|---------------|--------------------|
+| Binary Outcome | Sequences |
+|---------------|-----------|
 | 0 | (1,2,1,1), (1,2,2,2) |
 | 1 | (1,4,4,4), (1,1,1,1) |
 
-The remaining uncertainty is halved, corresponding to 1 bit of information. This example illustrates what one bit means, not how surprise is generated.
+In our version we have a probability mass reduction of 2.5. Converting this to binary is asking how many "halvings" it took to go from our original distribution 1 to 0.4. In general:
 
-In general, for an event with probability \(p(X)\), surprise is defined as:
+- 1 bit = reduction to 1/2
+- 2 bits = reduction to 1/4
+- N bits = reduction to 1 / 2^N
 
-\[
+So eyeballing it, 2.5 corresponds to a little more than 1 bit. The conversion is done by solving:
+
+$$
+2^L = 2.5
+$$
+
+$$
+L = \log_2(2.5) = 1.32 \text{ bits}
+$$
+
+If it was a reduction in half (1 / 0.5 = 2) it would be 1 bit, and it takes a little more than 1 bit because 2.5 > 2.
+
+And in general:
+
+$$
 \text{Surprise}(X) = \log_2 \frac{1}{p(X)}
-\]
+$$
 
-Rare events have higher surprise because they remove more uncertainty; common events have lower surprise.
+So conceptually surprise represents the amount of shrinkage of our prior probability to our new probability after observing a new event.
+The 1 / p is a ratio of our prior (1) to the new event we just saw.
 
-Fractional bits indicate one full halving of uncertainty plus an additional partial reduction.
+If the event is very unlikely, p is small and it shrinks our distribution by a huge factor, and we call it surprising.
+
+If the event is very likely, p is large and the 1 / p ratio is very small and it shrinks our probability by a small amount.
+
+We take that ratio and apply a logarithm to transform the ratio of shrinkage into the 'number of halvings' our distribution shrunk by after seeing that event P.
+The unit becomes bits and 1 bit means we removed half of the uncertainty, 2 bits means 1/4, 3 bits means 1/8, and so on.
+Usually we end up somewhere with a fractional bit, which just means conceptually in our example of 1.32 the uncertainty was reduced by one full halving plus a little extra.
 
 ---
 
-### TODO: Surprise Relation to Code Length
+### Surprise Relation to Code Length
 
-Surprise measures the uncertainty removed by observing a single event X. Code length measures the uncertainty removed after observing a sequence of multiple events.
+Surprise is the removal of uncertainty based on observing some event X.
+Code length similarly measures the removal of uncertainty after observing a sequence of multiple events.
 
-For independent events \(x_1, x_2, \dots, x_N\):
+If I observe event X then Y then Z, by what factor did it collapse my initial probability before observing those events?
+It can be derived as the sum of surprise of those events via a small proof below:
 
-\[
-P(x_1, x_2, \dots, x_N) = \prod_{i=1}^N p(x_i)
-\]
+$$
+P(x_1, x_2, \dots, x_n) = \prod_{i=1}^n P(x_i)
+$$
 
-The uncertainty reduction factor for observing the full sequence is:
+Factor P is reduced by:
 
-\[
-\frac{1}{\prod_{i=1}^N p(x_i)}
-\]
+$$
+\frac{1}{\prod_{i=1}^n P(x_i)}
+$$
 
-The code length is the number of binary halvings required to isolate the sequence:
+Code length:
 
-\[
-\begin{aligned}
+$$
 \text{Code Length}
-&= \log_2 \frac{1}{\prod_{i=1}^N p(x_i)} \\
-&= \sum_{i=1}^N \log_2 \frac{1}{p(x_i)}
-\end{aligned}
-\]
+= \log_2 \frac{1}{\prod_{i=1}^n P(x_i)}
+= \sum_{i=1}^n \log_2 \frac{1}{p(x_i)}
+$$
 
-Thus, code length is the sum of the surprises of the individual events.
+Code length and surprise are mathematically illuminating the idea of longer binary sequences for less frequent outcomes and shorter binary sequences for frequent outcomes.
+This is fundamentally the problem of compression.
 
-Frequent events contribute fewer bits; rare events contribute more bits. Compression is possible because events occur at unequal frequencies, allowing typical sequences to be represented with shorter code lengths.
+The only reason we can compress at all is because different events appear at different frequencies across some distribution P.
+Exploiting the varying frequencies of individual events we can group them into sequences that are more probable than others and give them shorter code lengths.
 
-Entropy is the expectation of surprise over the distribution:
+Surprise measures uncertainty of a single event; code length measures uncertainty of a sequence of events.
 
-\[
-H(P) = \sum_x p(x) \log_2 \frac{1}{p(x)}
-\]
+Entropy therefore is just the expectation of surprise across an entire distribution.
+It is a code length because it is an expectation: the probability of each event multiplied by the surprise of that event.
+It is an expectation of surprise across all events P, i.e. the average code length.
 
-Entropy represents the average surprise per event and therefore the average code length per symbol.
+### ⚙️ Deriving Entropy from the Binomial Distribution 
 
-### ⚙️ Surprise & The Binomial Distribution 
-
-Because we are using **binary coding** (i.e., 0s and 1s) to represent events, we can start formalizing the concept using the **binomial distribution**.
+It is also possible to derive the formula for entropy from a multinomial distribution - in this case we are deriving binary entropy (2 outcomes) for simplicity and using a binomial distribution.
 This distribution models a process with two possible outcomes (e.g., True/False or Heads/Tails) where one outcome has probability \( p \) and the other \( 1 - p \).
 
 The probability mass function (PMF) is given by:
@@ -587,84 +605,6 @@ $$
 H(p) = -p\log(p) - (1-p)\log(1-p)
 $$
 
-
-### Less Rigorous Derivation
-
-The derivation above used the binomial theorem to build entropy from combinatorics.
-A less formal but more intuitive way to reach the same idea is to think of entropy as the **expected surprise** of a random event.
-
-If we flip a **fair coin** three times, every sequence —
-`HHH, HHT, HTH, THH, HTT, THT, TTH, TTT` — is **equally likely**.
-There are \( 2^3 = 8 \) total outcomes, so describing each unique sequence requires **3 bits**.
-That’s because we must design our “codebook” *before* observing the flips,
-and each bit halves the number of possible outcomes.
-
-If we wanted to assign a shorter code to one outcome,
-we’d have to assign a longer code to another —
-since all are equally likely, that provides no compression benefit.
-
----
-
-### From Probability to Surprise
-
-The function that translates **probability** into **surprise** is:
-
-$$
-\text{surprise}(p) = \log_2\!\left(\frac{1}{p}\right)
-$$
-
-For 8 equally likely outcomes, \(p = 1/8\):
-
-$$
-\log_2\!\left(\frac{1}{1/8}\right) = \log_2(8) = 3 \text{ bits.}
-$$
-
-That tells us: it takes 3 binary questions (bits)
-to distinguish one specific sequence from the 8 possible ones.
-
----
-
-### Biased Coin Example
-
-Now suppose the coin is **biased**: \(p_H = 0.8\), \(p_T = 0.2\).
-Sequences with many heads are more frequent.
-We can take advantage of this by assigning **shorter codes** to common patterns
-and **longer codes** to rare ones — achieving compression.
-
-Using the same relationship:
-
-$$
-\text{surprise}(p_H) = \log_2\!\left(\frac{1}{0.8}\right), \quad
-\text{surprise}(p_T) = \log_2\!\left(\frac{1}{0.2}\right)
-$$
-
----
-
-### Taking the Expectation
-
-To find the **average surprise** across all possible outcomes,
-we weight each surprise by its probability — exactly like an expected value:
-
-$$
-H = \sum_i p_i \log_2\!\left(\frac{1}{p_i}\right)
-$$
-
-or equivalently,
-
-$$
-H = -\sum_i p_i \log_2(p_i)
-$$
-
-For the binary case, that becomes:
-
-$$
-H(p) = -p \log_2(p) - (1 - p) \log_2(1 - p)
-$$
-
-This represents the **average number of bits per symbol**
-needed to describe the outcomes of a random process.
-
----
 
 ### Summary
 

@@ -1,12 +1,10 @@
 # Entropy from First Principles
+Since cross entropy became a popular loss function ML textbooks gloss over much of the concepts involving info theory as 'we use logs because they have nice additive properties'. The goal of this section is to conceptually derive every aspect of information theory from scratch starting with concepts progressing into rigerous derivations. It involves stitching together concepts from probability, combinatorics, and coding theory. Hopefully by the end you'll have a deeper and richer understanding of what these concepts are actually measuring. Particularly why these concepts constantly show up in ML theory by understanding learning as fundementally a compression problem.
 
-Despite being the foundational concept that underlies information theory, entropy is often presented as a formula to memorize.
-This part of the repo devotes 6 sections to understanding what entropy actually measures. It starts from a pure conceptual view with no formulas and slowly builds up the formula from intuition by connecting concepts from probability, combinatorics, and coding theory together. The final section is a purely rigerous mathemtcal derivation from the binomial theorm and it matches the formula we construct in sections 1-5 from a conceptual framework.
-
-Unfortunately since cross entropy became a popular loss function ML textbooks gloss over much of the concepts as 'we use logs because they have nice additive properties'. Hopefully the reader will have a much greater depth of understanding of what these concepts are actually measuring and why they constantly show up in ML theory after reading this section.
 
 ## Table of Contents
 ### Entropy
+We define surprise and entropy and describe the fundmental problem in compression.
 1. [Concept and Intuition](docs/01_concept_and_intuition.md)
 2. [Kraft Inequality and Prefix Codes](docs/02_kraft_and_prefix_codes.md)
 3. [Formalizing Surprise](docs/03_formalizing_surprise.md)
@@ -14,6 +12,9 @@ Unfortunately since cross entropy became a popular loss function ML textbooks gl
 5. [Entropy from the Binomial Distribution](docs/05_binomial_derivation.md)
 
 ### Entropy Between Messages
+Extending the definition of entropy to multiple messages as well as multiple distributions. We end
+by deriving mutual information an important concept in machine learning that drives feature selection, representation learning, and model interpretation. We visualize it as a special type of KL divergence.
+
 1. TODO: Joint Entropy
 2. TODO: Conditional Entropy
 3. TODO: Cross Entropy

@@ -1,0 +1,13 @@
+# Entropy from First Principles
+
+Despite being the foundational concept that underlies information theory, entropy is often presented as a formula to memorize.
+This part of the repo devotes 6 sections to understanding what entropy actually measures. It starts from a pure conceptual view with no formulas and slowly builds up the formula from intuition by connecting concepts from probability, combinatorics, and coding theory together. The final section is a purely rigerous mathemtcal derivation from the binomial theorm and it matches the formula we construct in sections 1-5 from a conceptual framework.
+
+
+## Table of Contents
+
+1. [Concept and Intuition](01_concept_and_intuition.md)
+2. [Kraft Inequality and Prefix Codes](02_kraft_and_prefix_codes.md)
+3. [Formalizing Surprise](03_formalizing_surprise.md)
+4. [Surprise and Code Length](04_surprise_and_code_length.md)
+5. [Entropy from the Binomial Distribution](05_binomial_derivation.md)

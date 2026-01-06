@@ -7,7 +7,7 @@ Let's formalize the setup of the information theory problem before jumping into 
 3) **Decoder** – recovers the original source message from the compressed message sent across the channel  
 <div align="center">
 
-<img src="encoder_decode.png" width="290px">
+<img src="encoder_decode.png" width="320px">
 </div>
 Let's pause and think about a few channels:
 

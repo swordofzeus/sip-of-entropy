@@ -20,8 +20,7 @@ So far we've talked about sending one message at a time in isolation, calculatin
 Joint entropy looks at the uncertainty in sending multiple messages together from the sender as a single codeword.  
 From the encoder’s view, it asks: if I were to send these two messages together, how efficiently can I compress them into a single message?  
 
-From the decoder’s view, once I see these two events happen together as a single observation, how much does this observation collapse my prior probability distribution?  
-These are two perspectives of the same question.
+From the decoder’s view, once I see these two events happen together as a single observation, how much does this observation collapse my prior probability distribution? These are two perspectives of the same question.
 
 $$
 H(X,Y)

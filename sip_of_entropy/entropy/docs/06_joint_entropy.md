@@ -29,6 +29,7 @@ H(X,Y)
 $$
 
 Before jumping into the next section, pause and think about this.  Is the joint entropy simply the additive entropy of two events, that is, 
+
 $$
  H(X,Y) = H(X) + H(Y) 
 $$

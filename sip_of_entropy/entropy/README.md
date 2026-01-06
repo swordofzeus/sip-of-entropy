@@ -15,7 +15,7 @@ We define surprise and entropy and describe the fundmental problem in compressio
 Extending the definition of entropy to multiple messages as well as multiple distributions. We end
 by deriving mutual information an important concept in machine learning that drives feature selection, representation learning, and model interpretation. We visualize it as a special type of KL divergence.
 
-1. TODO: Joint Entropy
+1. [Joint Entropy](docs/06_joint_entropy.md)
 2. TODO: Conditional Entropy
 3. TODO: Cross Entropy
 4. TODO: KL Divergence

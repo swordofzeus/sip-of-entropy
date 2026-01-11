@@ -1,5 +1,11 @@
 # Entropy from First Principles
-Since cross entropy became a popular loss function ML textbooks gloss over much of the concepts involving info theory as 'we use logs because they have nice additive properties'. The goal of this section is to conceptually derive every aspect of information theory from scratch starting with concepts progressing into rigerous derivations. It involves stitching together concepts from probability, combinatorics, and coding theory. Hopefully by the end you'll have a deeper and richer understanding of what these concepts are actually measuring. Particularly why these concepts constantly show up in ML theory by understanding learning as fundementally a compression problem.
+When cross entropy became a popular loss function in deep learning, it was introduced in ML textbooks with very mechanical arguments. The derivation of entropy would introduce a log term because it made taking gradients easier and talk about how logs have nice additive properties. They would sometimes over simplify to the point of being wrong. For example many ML students believe that the KL divergence is a 'distance between two probability distributions' when it is not a distance at all.
+
+To understand what these concepts are actually measuring requires diving into the field of information theory. Hopefully by the end of this section you will understand at the deepest level why concepts from information theory constantly show up in ML and view learning as fundementally a compression problem. Gradients, backprop, and probability are all important. They give you the mechanics of how to train a model. How to do the math. But information theory explains why the math exists at all. It explains why different networks work better at certain problems and give rise to new network architectures.
+If gradients, backprop and probabiity are the grammar of the deep learning language, information theory is the resulting literature that arises.
+
+
+
 
 
 ## Table of Contents
@@ -18,11 +24,22 @@ by deriving mutual information an important concept in machine learning that dri
 1. [Joint Entropy](docs/06_joint_entropy.md)
 2. TODO: Conditional Entropy
 3. TODO: Cross Entropy
-4. TODO: KL Divergence
-5. TODO: Mutual Information
-6. TODO: Mutual Information as a KL Divergence
- 
+4. TODO: Entropy Chain RUle
+5. TODO: KL Divergence
+6. TODO: Mutual Information
+7. TODO: Mutual Information as a KL Divergence
+
 
  ### Entropy as a limit
  1. TODO: AEP Theorm
  2. TODO: Shannon source coding theorm
+
+
+  ### Entropy and Learning
+  1. TODO: MDL Principle
+  2. TODO: Cross Entropy as a Loss Function
+  3. TODO: ICA and Mutual Information
+  4. TODO: Information Bottleneck Principle
+  5. TODO: Variatonal Autoencoders as compression
+  6. TODO: Diffusion Models and Entropy
+  7. TODO: Convolutions + Downsampling as compression between layers

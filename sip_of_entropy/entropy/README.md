@@ -22,7 +22,7 @@ Extending the definition of entropy to multiple messages as well as multiple dis
 by deriving mutual information an important concept in machine learning that drives feature selection, representation learning, and model interpretation. We visualize it as a special type of KL divergence.
 
 1. [Joint Entropy](docs/06_joint_entropy.md)
-2. TODO: Conditional Entropy
+2. [Conditional Entropy](docs/07_conditional_entropy.md)
 3. TODO: Slepian–Wolf Theorem
 4. TODO: Cross Entropy
 5. TODO: Entropy Chain RUle

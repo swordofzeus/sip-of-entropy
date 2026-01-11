@@ -23,11 +23,12 @@ by deriving mutual information an important concept in machine learning that dri
 
 1. [Joint Entropy](docs/06_joint_entropy.md)
 2. TODO: Conditional Entropy
-3. TODO: Cross Entropy
-4. TODO: Entropy Chain RUle
-5. TODO: KL Divergence
-6. TODO: Mutual Information
-7. TODO: Mutual Information as a KL Divergence
+3. TODO: Slepian–Wolf Theorem
+4. TODO: Cross Entropy
+5. TODO: Entropy Chain RUle
+6. TODO: KL Divergence
+7. TODO: Mutual Information
+8. TODO: Mutual Information as a KL Divergence
 
 
  ### Entropy as a limit

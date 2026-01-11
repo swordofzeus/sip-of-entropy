@@ -155,6 +155,6 @@ From a compression perspective:
 
 | Perspective | Question Being Asked | Information-Theoretic Interpretation |
 |------------|----------------------|--------------------------------------|
-| **Encoder** | If I observe these events together, what is the shortest code I can assign to the pair by exploiting how frequently they co-occur? | Joint coding exploits statistical dependence to reduce average code length below separate encoding. |
-| **Decoder** | Once I receive this pair, how much does it collapse the probability distribution I had *before* observing it? | Observing a joint event removes uncertainty by collapsing the prior distribution to a posterior. |
-| **Comparison** | Did observing the pair remove uncertainty equal to observing each event separately? | If the events are independent, uncertainty is additive; if they are dependent, redundancy reduces total uncertainty removed. |
+| **Encoder** | If I observe these events together, what is the shortest code I can assign to the pair by exploiting how frequently they co-occur? | Joint entropy determines the optimal average code length when encoding the pair as a single message. |
+| **Decoder** | After receiving the joint message, how much does my uncertainty collapse compared to receiving the two events as separate messages? | If the events are independent, observing the joint message collapses uncertainty by the same amount as observing both messages separately. |
+| **Dependence Test** | Does observing the joint event remove the same uncertainty as observing each event individually? | Independence implies additive surprise: \(H(X,Y)=H(X)+H(Y)\). Dependence implies redundancy, so the joint observation collapses **less** uncertainty than two independent observations. |

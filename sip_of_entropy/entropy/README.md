@@ -1,7 +1,7 @@
 # Entropy from First Principles
 When cross entropy became a popular loss function in deep learning, it was introduced in ML textbooks with very mechanical arguments. The derivation of entropy would introduce a log term because it made taking gradients easier and talk about how logs have nice additive properties. They would sometimes over simplify to the point of being wrong. For example many ML students believe that the KL divergence is a 'distance between two probability distributions' when it is not a distance at all.
 
-To understand what these concepts are actually measuring requires diving into the field of information theory. Hopefully by the end of this section you will understand at the deepest level why concepts from information theory constantly show up in ML and view learning as fundementally a compression problem. Gradients, backprop, and probability are all important. They give you the mechanics of how to train a model. How to do the math. But information theory explains why the math exists at all. It explains why different networks work better at certain problems and give rise to new network architectures.
+To understand what these concepts are actually measuring requires diving into the field of information theory. Hopefully by the end of this section you will understand at the deepest level why concepts from information theory constantly show up in ML and view learning as fundementally a compression problem. Gradients, backprop, and probability are all important. They give you the mechanics of how to train a model. How to do the math. Information theory explains why the math exists at all. It explains why different networks work better at certain problems and give rise to new network architectures.
 If gradients, backprop and probabiity are the grammar of the deep learning language, information theory is the resulting literature that arises.
 
 
@@ -37,10 +37,10 @@ by deriving mutual information an important concept in machine learning that dri
 
 
   ### Entropy and Learning
-  1. TODO: MDL Principle
+  1. TODO: (Minimum Description Length)
   2. TODO: Cross Entropy as a Loss Function
   3. TODO: ICA and Mutual Information
   4. TODO: Information Bottleneck Principle
   5. TODO: Variatonal Autoencoders as compression
   6. TODO: Diffusion Models and Entropy
-  7. TODO: Convolutions + Downsampling as compression between layers
+  7. TODO: Convolutions and Downsampling as Lossy Compression

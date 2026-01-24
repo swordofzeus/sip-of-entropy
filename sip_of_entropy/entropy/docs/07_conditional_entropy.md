@@ -96,24 +96,113 @@ This motivates the idea of **conditional entropy**.
 
 ---
 
+# Conditional Entropy — Step-by-Step Derivation
+
+## Joint Entropy (Reference)
+
+The **joint entropy** of two random variables is defined as:
+
+$$
+H(X,Y) = \sum_{x,y} P(x,y)\,\log\frac{1}{P(x,y)}
+$$
+
+This measures the average surprise of observing a pair (X,Y).
+
+---
+
 ## Conditional Entropy (Core Idea)
 
 Conditional entropy answers the question:
 
-> Given that event \(X\) has already been observed,  
-> how much additional information is required to encode \(Y\)?
+> Given that X has already been observed,  
+> how much additional information is required to encode Y?
 
-Formally, conditional entropy is defined as:
+---
 
-$$
-H(Y \mid X) = \sum_x P(x)\,H(Y \mid X=x)
-$$
+## Step 1 — Probability Identity
 
-where
+We begin with the basic identity:
 
 $$
-H(Y \mid X=x) = \sum_y P(y \mid x)\,\log\frac{1}{P(y \mid x)}
+P(X,Y) = P(X)\,P(Y|X)
 $$
+
+This states that the probability of observing two events together can be written as:
+- first observing X, and
+- then observing the remaining uncertainty in Y given that X is already known
+
+---
+
+## Step 2 — Recall What Entropy Is
+
+Entropy is an **expectation of surprise**.
+
+For a single random variable:
+
+$$
+H(X) = \sum_x P(x)\,\log\frac{1}{P(x)}
+$$
+
+- P(x): how often the event x occurs  
+- log(1 / P(x)): the surprise of that event  
+- summing over all x: a weighted average of surprise over the distribution
+
+---
+
+## Step 3 — Change the Experiment
+
+To derive **conditional entropy**, we now consider two random variables, X and Y.
+
+We first write the expectation over the joint experiment, leaving the surprise term unspecified:
+
+$$
+\sum_{x,y} P(x,y)\,\text{(surprise)}
+$$
+
+Substitute the joint identity:
+
+$$
+\sum_{x,y} P(x)\,P(y|x)\,\text{(surprise)}
+$$
+
+Rearrange the sums:
+
+$$
+\sum_x P(x)\sum_y P(y|x)\,\text{(surprise)}
+$$
+
+At this stage:
+- no conditional entropy has been defined yet
+- we have only rewritten the expectation for a joint draw
+
+---
+
+## Step 4 — Choose the Surprise Term
+
+Since X is already known, the remaining uncertainty is in Y.
+
+The surprise of observing y given x is:
+$$
+\log\frac{1}{P(y|x)}
+$$
+
+Substituting this gives the definition of conditional entropy:
+
+$$
+H(Y|X)
+= \sum_x P(x)\sum_y P(y|x)\,\log\frac{1}{P(y|x)}
+$$
+
+Conceptually - the encoder and decoder both know X happened. That is why the outer term is fixed as P(X). What is the minimum number of bits the encoder needs to send to let the decoder know that Y also happend.
+
+
+---
+
+## Interpretation
+
+- The outer weight P(x) averages over which context X = x occurs
+- The inner sum measures the uncertainty remaining in Y once that context is known
+- Conditional entropy is therefore an expectation of conditional surprise
 
 Interpretation:
 

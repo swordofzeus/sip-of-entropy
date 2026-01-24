@@ -23,7 +23,7 @@ by deriving mutual information an important concept in machine learning that dri
 
 1. [Joint Entropy](docs/06_joint_entropy.md)
 2. [Conditional Entropy](docs/07_conditional_entropy.md)
-3. TODO: Slepian–Wolf Theorem
+3. TODO: [Slepian–Wolf Theorem](docs/08_slepian_wolf.md)
 4. TODO: Cross Entropy
 5. TODO: Entropy Chain RUle
 6. TODO: KL Divergence

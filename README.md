@@ -1,19 +1,10 @@
 # sip-of-entropy
 
-[![Release](https://img.shields.io/github/v/release/swordofzeus/sip-of-entropy)](https://img.shields.io/github/v/release/swordofzeus/sip-of-entropy)
-[![Build status](https://img.shields.io/github/actions/workflow/status/swordofzeus/sip-of-entropy/main.yml?branch=main)](https://github.com/swordofzeus/sip-of-entropy/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/swordofzeus/sip-of-entropy/branch/main/graph/badge.svg)](https://codecov.io/gh/swordofzeus/sip-of-entropy)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/swordofzeus/sip-of-entropy)](https://img.shields.io/github/commit-activity/m/swordofzeus/sip-of-entropy)
-[![License](https://img.shields.io/github/license/swordofzeus/sip-of-entropy)](https://img.shields.io/github/license/swordofzeus/sip-of-entropy)
-
 When cross entropy became a popular loss function in deep learning, it was introduced in ML textbooks with very mechanical arguments. The derivation of entropy would introduce a log term because it made taking gradients easier and talk about how logs have nice additive properties. They would sometimes over simplify to the point of being wrong. For example many ML students believe that the KL divergence is a 'distance between two probability distributions' when it is not a distance at all.
 
 To understand what these concepts are actually measuring requires diving into the field of information theory. Hopefully by the end of this section you will understand at the deepest level why concepts from information theory constantly show up in ML and view learning as fundamentally a compression problem. Gradients, backprop, and probability are all important. They give you the mechanics of how to train a model. How to do the math. Information theory explains why the math exists at all. It explains why different networks work better at certain problems and give rise to new network architectures.
 
 If gradients, backprop and probability are the grammar of the deep learning language, information theory is the resulting literature that arises.
-
-- **Github repository**: <https://github.com/swordofzeus/sip-of-entropy/>
-- **Documentation**: <https://swordofzeus.github.io/sip-of-entropy/>
 
 ---
 

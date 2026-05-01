@@ -1,0 +1,52 @@
+site_name: sip-of-entropy
+repo_url: https://github.com/swordofzeus/sip-of-entropy
+site_url: https://swordofzeus.github.io/sip-of-entropy
+site_description: `sip-of-entropy` is a lightweight sandbox for learning and experimenting with core concepts in information theory, such as entropy, cross-entropy, mutual information, and basic error-correcting codes like Hamming.
+site_author: Ashish Juneja
+edit_uri: edit/main/docs/
+repo_name: swordofzeus/sip-of-entropy
+copyright: Maintained by <a href="https://swordofzeus.com">swordofzeus</a>.
+
+nav:
+  - Home: index.md
+  - Modules: modules.md
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ["src/sip_of_entropy"]
+theme:
+  name: material
+  feature:
+    tabs: true
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/swordofzeus/sip-of-entropy
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/sip-of-entropy
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true

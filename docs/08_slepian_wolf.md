@@ -222,3 +222,95 @@ $$
 | Exploit dependence (joint entropy) | $H(X) + H(Y \mid X)$ | 4.00 | 0.29 |
 
 This is the theoretical limit — no coding scheme can do better than 4.00 bits on average for this distribution.
+
+### Building The Codebook
+
+The core idea Slepian–Wolf uses is **exploiting hash collisions**. A hash collision is when two items hash to the same value. In most contexts this is a bad thing:
+
+- **Cryptographic hashes** — a malicious file with the same hash as a legitimate one can fool an operating system into executing dangerous code
+- **Hash maps** — two keys landing in the same bucket means you have to traverse the entire bucket to find your value
+
+Slepian–Wolf uses collisions optimistically.
+
+---
+
+#### Setting up the example
+
+Imagine we draw 10 cards (with replacement). The number encoder only sees the numerical values:
+
+```
+5  1  6  7  10  2  4  3  5  9
+```
+
+To build the codebook, we enumerate all possible length-10 number sequences. There are 10 possible numbers and 10 draws, so $10^{10}$ possible sequences:
+
+```
+1  1  1  1  1  1  1  1  1  1
+1  1  1  1  1  1  1  1  1  2
+...
+9  9  9  9  9  9  9  9  9  9
+```
+
+Each sequence gets assigned to a bin. The encoder sends the **bin index** instead of the full sequence.
+
+---
+
+#### How many bins?
+
+The general formula for the number of bins is:
+
+$$2^{n \cdot R}$$
+
+| Term | Meaning |
+|------|---------|
+| $2$ | counting in bits — each bit doubles the number of bins |
+| $n$ | sequence length |
+| $R$ | rate: bits per symbol the encoder sends |
+
+---
+
+#### Which encoder sends the marginal? Which sends the conditional?
+
+The joint entropy identity tells us:
+
+$$H(A, B) = H(A) + H(B \mid A)$$
+
+So one encoder sends the **full marginal**, the other sends the **conditional**. We pick the variable with the smaller marginal to carry the full marginal rate, which minimizes total bits:
+
+| Encoder | Rate | Bits (n=10) |
+|---------|------|-------------|
+| Color — smaller marginal, sends full marginal | $H(\text{color}) = 1$ bit | $2^{10 \times 1} = 1{,}024$ bins |
+| Number — sends conditional | $H(\text{number} \mid \text{color}) \approx 3.00$ bits | $2^{10 \times 3.00} \approx 1{,}073{,}741{,}824$ bins |
+
+---
+
+#### The number encoder in action
+
+Our observed sequence `5 1 6 7 10 2 4 3 5 9` lands in one of the ~1 billion number bins — say bin 6000. Many other sequences also map to bin 6000:
+
+$$\text{bin}_{6000} = \{\text{seq}_1,\ \text{seq}_2,\ \dots,\ \text{seq}_k\}$$
+
+One of those sequences is the true one we drew. The decoder's job is to figure out which one.
+
+---
+
+#### The color encoder in action
+
+The color encoder sees the color sequence and assigns it to one of 1,024 color bins. The possible color sequences for $n = 10$:
+
+```
+R  R  R  R  R  R  R  R  R  R
+R  R  R  R  R  R  R  R  R  B
+...
+B  B  B  B  B  B  B  B  B  B
+```
+
+The color sequence also lands in one bin — say color bin 3. The decoder now has two bin indices: number bin 6000 and color bin 3.
+
+$$\text{Number Codebook}[6000] = \{\text{seq}_1, \text{seq}_2, \dots, \text{seq}_k\}$$
+$$\text{Color Codebook}[3] = \{\text{seq}_1, \text{seq}_2, \dots, \text{seq}_m\}$$
+
+Now the decoder has two bin indices that each point to multiple sequences. It checks every pair — one number sequence from bin 6000, one color sequence from bin 3 — and asks: does this pair obey the underlying joint distribution? For example, 50% of draws should be black and 50% red, and of those that are black, 30% should be greater than 5. The decoder filters for the pair that most closely fits the joint distribution. This is **joint typicality**. With high probability there is exactly one such pair — the true one — so no guessing is needed.
+
+What if the decoder finds a wrong pair? It can happen; but think of Slepian–Wolf as a limit. As $n \to \infty$ the probability that any wrong pair passes the joint typicality check diminishes rapidly — as $n$ goes from 100 to 1,000 to 100,000 draws. This happens because of the same fundamental theorem that gave rise to Shannon entropy: the law of large numbers. In the limit, atypical sequences disappear. You never roll a million heads in a row with a fair coin. The probability mass converges to a typical set as $n \to \infty$. If you drew a sequence of a million black cards that were all higher than 5, you would be sampling from an incorrect distribution. Which leads into the next section on cross entropy.
+
